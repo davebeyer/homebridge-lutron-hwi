@@ -1,0 +1,9 @@
+[
+    { "comment": "=========================================="},
+    { "comment": "======== Sample Circuits file     ========"},
+    { "comment": "=========================================="},
+    
+    { "address": "1.1.1.1.1", "name": "Family Room Pendant" },
+    { "address": "1.1.1.1.2", "name": "Kitchen Under Cabinet" },
+    { "address": "1.1.1.2.1", "name": "Office Floor Plug", "dimmable" : false }
+]

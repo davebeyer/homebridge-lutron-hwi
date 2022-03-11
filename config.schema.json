@@ -1,0 +1,56 @@
+{
+  "pluginAlias": "lutron-hwi",
+  "pluginType": "platform",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true,
+        "default": "Lutron Lighting Bridge"
+      },
+      "circuitsFile": {
+        "title": "Path to lighting circuits file",
+        "type": "string",
+        "required": true
+      },
+      "commMode": {
+        "title": "A single Telnet bridge can share the connection with multiple IPC bridges",
+        "type": "string",
+        "default": "Telnet",
+        "oneOf": [
+          {"title": "Telnet", "enum":["telnet"]},
+          {"title": "IPC", "enum":["ipc"]}
+        ],
+        "required": true
+      },
+      "telnetIP": {
+        "title": "Telnet IP Address",
+        "type": "string",
+        "format": "hostname",
+        "required": true
+      },
+      "telnetPort": {
+        "title": "Telnet Port",
+        "type": "integer",
+        "required": true
+      },
+      "minInterCmdTime": {
+        "title": "Minimum delay between telnet commands (ms)",
+        "type": "integer",
+        "minimum": 0,
+        "default": 200,
+        "maximum": 1000
+      },
+      "disabled": {
+        "title": "Test mode (debug logging only, no commands sent via telnet)",
+        "type": "boolean",
+        "default": false
+      }
+    }
+  }
+}
+
+
