@@ -35,7 +35,7 @@ Features:
   status via IPC sockets.
 
 
-## Overview
+## Setup:
 
 The basic steps for using this plugin are:
 
@@ -47,11 +47,12 @@ The basic steps for using this plugin are:
   for details on how to setup Homebridge as a service.  Typically start, stop, and restart
   the homebridge process using ```sudo hb-service [start|stop|restart]```.
 
-* Add this ```homebridge-lutron-hwi``` plugin to the homebridge
-  process.  If working from source, refer to [Plugin
-  Development](https://github.com/homebridge/homebridge#plugin-development)
-  for how to ```npm link``` this plugin to make it available to
-  homebridge (following ```npm install``` and ```npm build```.
+* Install this ```homebridge-lutron-hwi``` plugin to the homebridge
+  process.  Typically:
+
+```
+sudo npm -g install @davebeyer/homebridge-lutron-hwi
+```
 
 * Create your JSON circuits file (see format below) to give the names
   and Lutron addresses for your lighting circuits.
