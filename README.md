@@ -44,15 +44,17 @@ The basic steps for using this plugin are:
   [Raspberry Pi processor](https://homebridge.io/raspberry-pi-image).
   Also see [Homebridge Service
   Command](https://github.com/oznu/homebridge-config-ui-x/wiki/Homebridge-Service-Command)
-  for details on how to setup Homebridge as a service.  Typically start, stop, and restart
+  for details on how to setup Homebridge as a service.  E.g., start, stop, and restart
   the homebridge process using ```sudo hb-service [start|stop|restart]```.
 
-* Install this ```homebridge-lutron-hwi``` plugin to the homebridge
-  process.  Typically:
+* Install this ```homebridge-lutron-hwi``` plugin into your system.  Typically:
 
 ```
 sudo npm -g install @davebeyer/homebridge-lutron-hwi
 ```
+
+* Add the plugin into your Homebridge configuration on the "plugins" page
+  in the Homebridge UI.
 
 * Create your JSON circuits file (see format below) to give the names
   and Lutron addresses for your lighting circuits.
