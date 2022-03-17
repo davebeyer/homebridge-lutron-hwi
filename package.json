@@ -2,7 +2,7 @@
   "displayName": "Lutron Lighting",
   "name": "@davebeyer/homebridge-lutron-hwi",
   "author": "Dave Beyer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Homebridge plugin for Lutron Homeworks Interactive lighting.",
   "license": "Apache-2.0",
   "repository": {
