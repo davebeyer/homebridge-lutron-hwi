@@ -30,7 +30,7 @@
     "Lutron Homeworks Interactive"
   ],
   "dependencies": {
-    "@types/node-ipc": "^9.2.0",
+    "@types/node-ipc": "9.2.1",
     "async-await-queue": "^1.2.0",
     "fs-extra": "^10.0.1",
     "node-ipc": "^10.1.0",
