@@ -83,7 +83,7 @@ via this plugin.
 
 ## Config options
 
-The following settings are used to configure the plugin (accessiblel
+The following settings are used to configure the plugin (accessible
 via the plugin's "Settings" in the Homebridge UI, or directly by
 editing the homebridge ```config.json``` file.
 
