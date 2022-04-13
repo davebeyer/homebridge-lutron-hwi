@@ -93,8 +93,8 @@ editing the homebridge ```config.json``` file.
 | name         | string | Lutron Lighting Bridge | Name of this homebridge plugin |
 | circuitsFile | string | (none)   | Full path to the lighting circuits JSON file (see below for file format) |
 | commMode     | string | telnet   | Communication mode, either "telnet" or "ipc".  One Homebridge process must provide the Telnet connection to the Lutron  processor.  Any others (running on the same machine) must use IPC to share  access to this telnet channel. |
-| telnetIP     | string | (none)   | IP address of the Telnet-to-RS232 converter that's  connected to the Lutron processor(s) |
-| telnetPort   | integer | (none)  |    TCP port used for the Telnet-to-RS232 communication. |
+| telnetIP     | string | (none)   | IP address of the Telnet-to-RS232 converter that's  connected to the Lutron processor(s) (only used with commMode set to 'telnet'). |
+| telnetPort   | integer | (none)  |    TCP port used for the Telnet-to-RS232 communication  (only used with commMode set to 'telnet'). |
 | minInterCmdTime | integer | 200 | The minimum delay, in milliseconds, between consecutive RS232 commands (that don't expect a response) to the Lutron processor.  |
 | disabled     | boolean | false | When set to true, communication with the Lutron is deactivated and only logging is generated (to indicate what commands would have been sent to Lutron).  |
 
