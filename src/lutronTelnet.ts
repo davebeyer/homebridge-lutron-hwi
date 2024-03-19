@@ -63,6 +63,7 @@ type LutronTelnetOptions = {
     telnetIP: string;
     telnetPort: number;
     minCmdDelay: number;
+    password: string;
 };
 
 type OutHandlerCB = (OutputType, Array) => void;
@@ -86,6 +87,7 @@ export class LutronTelnet {
   private minCmdDelay = 200;
 
   private ipAdr = '';
+  private password= '';
   private port = 0;
 
   private ipcCounter = 0;
@@ -99,6 +101,9 @@ export class LutronTelnet {
     if (opts !== undefined) {
       if (opts.telnetIP !== undefined) {
         this.ipAdr = opts.telnetIP;
+      }
+      if (opts.password!== undefined) {
+        this.password = opts.password;
       }
       if (opts.telnetPort !== undefined) {
         this.port = opts.telnetPort;
@@ -187,7 +192,7 @@ export class LutronTelnet {
       await this.connection.connect(params);
       this.connected = true;
 
-      this.telnetSend('', Priority.High);       // just CR to bring up the prompt
+      this.telnetSend(this.password, Priority.High);       // just CR to bring up the prompt
       this.telnetSend('DLMON', Priority.High);  // ensure monitoring of dimmer-level changes
 
       this.connection.on('data', (buf) => {

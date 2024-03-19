@@ -37,6 +37,7 @@ export class LutronHWIPlatform implements DynamicPlatformPlugin {
     this.lutronTelnet = new LutronTelnet(this, this.config.commMode, {
       telnetIP : this.config.telnetIP,
       telnetPort : this.config.telnetPort,
+      password: this.config.password,
       minCmdDelay : this.config.minInterCmdTime,
     });
 
