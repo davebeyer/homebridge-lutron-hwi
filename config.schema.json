@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "lutron-hwi-ajs",
+  "pluginAlias": "lutron-hwi",
   "pluginType": "platform",
   "singular": true,
   "schema": {
