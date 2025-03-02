@@ -37,6 +37,10 @@
         "type": "integer",
         "required": true
       },
+      "password": {
+        "title": "Optional User,Pass",
+        "type": "string"
+      },
       "minInterCmdTime": {
         "title": "Minimum delay between telnet commands (ms)",
         "type": "integer",
