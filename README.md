@@ -44,7 +44,7 @@ The basic steps for using this plugin are:
   [Raspberry Pi processor](https://homebridge.io/raspberry-pi-image).
   Also see [Homebridge Service
   Command](https://github.com/oznu/homebridge-config-ui-x/wiki/Homebridge-Service-Command)
-  for details on how to setup Homebridge as a service.  E.g., start, stop, and restart
+  for details on how to setup Homebridge as a service.  Typically, start, stop, and restart
   the homebridge process using ```sudo hb-service [start|stop|restart]```.
 
 * Install this ```homebridge-lutron-hwi``` plugin into your system.  Typically:
@@ -53,8 +53,19 @@ The basic steps for using this plugin are:
 sudo npm -g install @davebeyer/homebridge-lutron-hwi
 ```
 
-* Add the plugin into your Homebridge configuration on the "plugins" page
-  in the Homebridge UI.
+* Add this ```homebridge-lutron-hwi``` plugin to the homebridge
+  process on the "plugins" page in the Homebridge UI.  To install
+  released version, search for ```@davebeyer/homebridge-lutron-hwi```.
+  If working from source, refer to [Plugin
+  Development](https://github.com/homebridge/homebridge#plugin-development)
+  for how to ```npm link <path to local homebridge-lutron-hwi>``` this plugin
+  (following ```npm install``` and ```npm build```) to symlink it into the global
+  npm space which makes it available to the homebridge service.  E.g.,
+
+```
+cd /var/lib/homebridge/node_modules
+npm link <full path to cloned homebridge-lutron-hwi plugin>
+```
 
 * Create your JSON circuits file (see format below) to give the names
   and Lutron addresses for your lighting circuits.
@@ -91,13 +102,20 @@ editing the homebridge ```config.json``` file.
 | Name         | Type   | Default  | Description                  |
 |--------------|--------|----------|------------------------------|
 | name         | string | Lutron Lighting Bridge | Name of this homebridge plugin |
+| room         | string | (none)   | Optional room name (currently unused in Homebridge->HomeKit communication) |
 | circuitsFile | string | (none)   | Full path to the lighting circuits JSON file (see below for file format) |
 | commMode     | string | telnet   | Communication mode, either "telnet" or "ipc".  One Homebridge process must provide the Telnet connection to the Lutron  processor.  Any others (running on the same machine) must use IPC to share  access to this telnet channel. |
 | telnetIP     | string | (none)   | IP address of the Telnet-to-RS232 converter that's  connected to the Lutron processor(s) (only used with commMode set to 'telnet'). |
 | telnetPort   | integer | (none)  |    TCP port used for the Telnet-to-RS232 communication  (only used with commMode set to 'telnet'). |
+| password     | string | (none)  |  Optional password for telneting directly to Lutron system |
 | minInterCmdTime | integer | 200 | The minimum delay, in milliseconds, between consecutive RS232 commands (that don't expect a response) to the Lutron processor.  |
 | disabled     | boolean | false | When set to true, communication with the Lutron is deactivated and only logging is generated (to indicate what commands would have been sent to Lutron).  |
 
+Only use alphanumeric, space, and apostrophe characters for the name
+and optional room settings. Ensure they start and end with an
+alphabetic or numeric character, and avoid emojis. Otherwise, it may
+prevent the accessory from being added in the Home App or cause
+unresponsiveness.
 
 ## Specifying circuit addresses and names
 
@@ -141,10 +159,18 @@ commas.
 
 Note that due to a HomeKit limitation, Homebridge limits each bridge
 to 149 accessories (i.e., lighting circuits).  If you have more than
-that, you'll need to [create multiple
+that, you'll need to configure the Homebridge-Lutron-HWI plugin as
+multiple [Child
+Bridges](https://github.com/homebridge/homebridge/wiki/Child-Bridges)
+to keep below this limit per bridge.  In this case, separate the
+circuits into two or more files, one for each homebridge process, and the ```config.json```
+should have multiple ```lutron-hwi``` platform sections, one for each child bridge, with unique ```name```,
+```circuitsFile```, and ```_bridge``` settings (see above reference for the ```_bridge``` setting.
+
+Note that the old method of starting [multiple
 bridges](https://github.com/oznu/homebridge-config-ui-x/wiki/Homebridge-Service-Command#multiple-instances)
-to keep below this limit.  In this case, separate the circuits into
-two or more files, one for each homebridge process.
+has been deprecated.
+
 
 
 ## Other Notes

@@ -192,7 +192,7 @@ export class LutronTelnet {
       await this.connection.connect(params);
       this.connected = true;
 
-      this.telnetSend(this.password, Priority.High);       // just CR to bring up the prompt
+      this.telnetSend(this.password, Priority.High); // Optional password or just CR to bring up the prompt
       this.telnetSend('DLMON', Priority.High);  // ensure monitoring of dimmer-level changes
 
       this.connection.on('data', (buf) => {

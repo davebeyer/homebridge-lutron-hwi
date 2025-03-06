@@ -7,6 +7,8 @@ import { OutputType, LutronTelnet } from './lutronTelnet';
 
 import fs from 'fs-extra';
 
+const DefaultRoomName = 'Unknown';
+
 // Convenience timeout (for "await timeout(xx)")
 export function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -69,7 +71,8 @@ export class LutronHWIPlatform implements DynamicPlatformPlugin {
    * It should be used to setup event handlers for characteristics and update respective values.
    */
   configureAccessory(accessory: PlatformAccessory) {
-    this.log.info('Loading accessory from cache:', accessory.displayName);
+    let room = accessory.context && accessory.context.room ? accessory.context.room : DefaultRoomName;
+    this.log.info(`Loading accessory from cache ${accessory.displayName} for room ${room}`);
 
     // add the restored accessory to the accessories cache so we can track if it has already been registered
     this.accessories.push(accessory);
@@ -140,10 +143,16 @@ export class LutronHWIPlatform implements DynamicPlatformPlugin {
       } else {
 
         // the accessory does not yet exist, so we need to create it
-        this.log.info('Adding new accessory:', device.name);
+        this.log.info(`Adding new accessory ${device.name} to room ${device.room ? device.room : DefaultRoomName}`);
 
         // create a new accessory
         const accessory = new this.api.platformAccessory(device.name, uuid);
+
+	if (device.room) {
+	   // NOTE that "room" currently appears to be unused in Homebridge->HomeKit interaction
+	   // (setting this via Homebridge does not appear to be supported by HomeKit)
+	   accessory.context.room = device.room;
+	}
 
         // store a copy of the device object in the `accessory.context`
         // the `context` property can be used to store any data about the accessory you may need
